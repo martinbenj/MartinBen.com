@@ -73,44 +73,30 @@ function sendMail(e) {
 }
 
 
-	var app = Davis(function () {
-	
-		this.get('/', function (req) {
-			makeAjaxCall( "partials/_home.html" )
+var app = Davis(function () {
+
+	this.get('/', function (req) {
+		makeAjaxCall( "partials/_home.html" )
 /* 			customFunc( "partials/_home.html" ); */
-		})
-		
-		this.get('/contact', function(req) {
-			makeAjaxCall( "partials/_contact.html" )
-		})
-		
-		this.get('/blog', function(req) {
-			makeAjaxCall( "partials/_posts.html" )
-		})
+	})
 	
-		
-		this.get('/blog/:id', function(req) {
-			makeAjaxCall( req.params['id'] + "-navigation-true" )
-		})
-          
-    })
-
-    app.start()
-
-
-
-
-$(document).ready(function(){
-
-/* 	makeAjaxCall( "partials/_home.html" ) */
-
-/*
-	Path.root("#/home");
+	this.get('/contact', function(req) {
+		makeAjaxCall( "partials/_contact.html" )
+	})
 	
-	Path.listen();
-*/
+	this.get('/blog', function(req) {
+		makeAjaxCall( "partials/_posts.html" )
+	})
+
 	
-});
+	this.get('/blog/:id', function(req) {
+		makeAjaxCall( req.params['id'] + "-navigation-true" )
+	})
+      
+})
+
+app.start()
+
 
 
 
