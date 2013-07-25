@@ -1,25 +1,26 @@
-var express = require("express"),
-    variables = require("variables.json"),
-    hbs = require('hbs'),
-    mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId,
-    auth = require('http-auth'),
-    basic = auth({ authRealm : 'admin', authList : ['testu:'+variables.adminPass] }),
-    moment = require('moment'),
-    nodemailer = require('nodemailer'),
-    http = require('http'),
-    mailgun = require('mailgun-js')(variables.mailgunPass, 'martinben.mailgun.org'),
+// Define my dependencies and other variables needed for the app.
+var express 	= require("express"),
+    variables 	= require(__dirname + "/variables.json"),
+    hbs 		= require('hbs'),
+    mongoose 	= require('mongoose'),
+    Schema 		= mongoose.Schema,
+    ObjectId 	= Schema.ObjectId,
+    auth 		= require('http-auth'),
+    basic 		= auth({ authRealm : 'admin', authList : ['testu:'+variables.adminPass] }),
+    moment 		= require('moment'),
+    nodemailer 	= require('nodemailer'),
+    http 		= require('http'),
+    mailgun 	= require('mailgun-js')(variables.mailgunPass, 'martinben.mailgun.org'),
+    fs 			= require('fs');
 
-    fs = require('fs');
-
+// Set up Express app
 var app = express();
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
 app.set('views', __dirname);
 app.use(express.bodyParser());
 
-// Database
+// Connect to MongoDB with Mongoose adapter
 mongoose.connect('mongodb://localhost/martinben');
 
 var Post = mongoose.model('Post', new mongoose.Schema({
@@ -28,10 +29,10 @@ var Post = mongoose.model('Post', new mongoose.Schema({
 	date: Date
 }));
 
-// Routing
 
+// All routes for my app
 
-
+// Delete a post from my admin panel
 app.get('/admin/delete', function(req, res) {
 	if (req.query.post_id) {
 		Post.findById(req.query.post_id).remove();
@@ -41,6 +42,7 @@ app.get('/admin/delete', function(req, res) {
 	}
 });
 	
+// Display all posts when /blog is loaded
 app.get('/partials/_posts.html', function(req, res) {
 
 	Post.find(function(err, data) {
@@ -63,7 +65,7 @@ app.get('/partials/_posts.html', function(req, res) {
 	});
 });
 
-
+// Load a specific blog post
 app.get('/blog/:name', function(req,res) {
 	
 	if (req.params.name.indexOf("-navigation-true") != -1) {
@@ -104,15 +106,14 @@ app.get('/blog/:name', function(req,res) {
 });
 
 
-
-
+// Load my admin panel
 app.get('/admin', function(req, res) {
 
 	basic.apply(req, res, function(username){
 		
 		Post.find(function(err, data) {
 		
-			res.render('assets/admin.html', { posts:data, layout: none});
+			res.render(__dirname + '/assets/admin.html', { posts:data });
 			
 		});
 
@@ -121,8 +122,7 @@ app.get('/admin', function(req, res) {
 });
 
 
-
-
+// The form in my admin panel routes here to insert a post
 app.post('/insert', function(req, res) {
 	var post = new Post({ title: req.body.title, body: req.body.body, date: new Date() });
 	post.save(function (err) {
@@ -135,6 +135,7 @@ app.post('/insert', function(req, res) {
 	});
 });
 
+// A post to mail is encountered when someone contacts me through the form at /contact
 app.post('/mail', function(req, res) {
 
 	console.log(req.body);
@@ -153,61 +154,37 @@ app.post('/mail', function(req, res) {
 		
 });
 
+// The page linked from the admin panel that allows me to edit a post.
 app.get('/admin/edit', function(req, res) {
 
 
 	Post.findById(req.query.post_id, function(err, doc){
 	
-		res.render('assets/edit.html', {post: doc, layout: none });
+		res.render(__dirname + '/assets/edit.html', {post: doc});
 		
 	});
-	
-	console.log('\n\n\n');
-	
-	console.log(Post.findById(req.query.post_id));
 
-	/*
-Post.find(function(err, data) {
-		
-		
-		
-		console.log(data[0].title);
-			
-	
-	});
-*/
-	
-/* 	console.log(Post.findById(req.query.post_id)); */
-	
 	
 });
 
+// Post an edit to a blog post.
 app.post('/admin/edit', function(req, res) {
 
 	Post.findById(req.query.post_id).update({body:req.body.body});	
-	
-	/* Did not work:
-Post.findById(req.query.post_id, function(err, doc){
-	
-		doc.update({body:req.body.body});
-	
-	});
-*/
 	
 	res.redirect('/admin');	
 
 });
 
+// Convenience for accessing my mail server when I don't have my laptop with Mac Mail.
 app.get('/mail', function(req, res) {
 
 	res.redirect('https://s17-dallas.accountservergroup.com:2096');
 	
 });
 
-
+// Render a template onto the view
 function getFile(req, res) {
-
-	
 	
 	if (req.params.something == 'blog') {
 		Post.find(function(err, data) {
@@ -229,7 +206,9 @@ function getFile(req, res) {
 		res.render('assets/index.html', {partial: html})
 	})
 		
-	} else {
+	} 
+	
+	else {
 	
 		if (req.params.something == undefined) req.params.something = 'home'
 	
@@ -248,16 +227,13 @@ function getFile(req, res) {
 	}
 }
 
-
+// Root route
 app.get('/', getFile);
 
+// Handling /contact, /blog, and 404 errors if not a legitimate URL.
 app.get('/:something', getFile);
 
-
-
-
-
-// Run
+// Run the app and define the path we'll be using.
 app.listen(3000);
 console.log("Yes, I'm listening on port 3000.");
 app.use(express.static(__dirname + "/assets"));

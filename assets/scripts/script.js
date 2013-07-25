@@ -17,24 +17,6 @@ function makeAjaxCall(partial) {
     });  
 }
 
-/*
-function customFunc(partial) {
-
-	$.ajax({
-		type: "POST",
-		url: "/renderPartial",
-		data: { where : "there" },
-		dataType: "html",
-		success: function(data) {
-			alert(data);
-		 
-        }
-    });
-    
-}
-*/
-
-
 function sendMail(e) {
 
 	e.preventDefault();
