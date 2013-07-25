@@ -1,14 +1,16 @@
 var express = require("express"),
+    variables = require("variables.json"),
     hbs = require('hbs'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     auth = require('http-auth'),
-    basic = auth({ authRealm : 'admin', authList : ['testu:{SHA}MEH0hUYamKWrgKNL+3jcYmbJlPo='] }),
+    basic = auth({ authRealm : 'admin', authList : ['testu:'+variables.adminPass] }),
     moment = require('moment'),
     nodemailer = require('nodemailer'),
     http = require('http'),
-    mailgun = require('mailgun-js')('key-6fdc0icgerlje98n0hndwz41dhoff183', 'martinben.mailgun.org'),
+    mailgun = require('mailgun-js')(variables.mailgunPass, 'martinben.mailgun.org'),
+
     fs = require('fs');
 
 var app = express();
@@ -93,7 +95,7 @@ app.get('/blog/:name', function(req,res) {
 		
 			html = '<article><h3>' + doc.title + '</h3></a> <h4>' + moment(doc.date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + doc.body + '</section></article>';
 	
-			res.render('public_html/index.html', {partial: html});
+			res.render('assets/index.html', {partial: html});
 			
 		});
 		
@@ -110,7 +112,7 @@ app.get('/admin', function(req, res) {
 		
 		Post.find(function(err, data) {
 		
-			res.render('public_html/admin.html', { posts:data, layout: none});
+			res.render('assets/admin.html', { posts:data, layout: none});
 			
 		});
 
@@ -156,7 +158,7 @@ app.get('/admin/edit', function(req, res) {
 
 	Post.findById(req.query.post_id, function(err, doc){
 	
-		res.render('public_html/edit.html', {post: doc, layout: none });
+		res.render('assets/edit.html', {post: doc, layout: none });
 		
 	});
 	
@@ -224,14 +226,14 @@ function getFile(req, res) {
 		
 		postIncrement = 1;
 		
-		res.render('public_html/index.html', {partial: html})
+		res.render('assets/index.html', {partial: html})
 	})
 		
 	} else {
 	
 		if (req.params.something == undefined) req.params.something = 'home'
 	
-		fs.readFile("public_html/partials/_" + req.params.something + ".html", function read(err, data) {
+		fs.readFile("assets/partials/_" + req.params.something + ".html", function read(err, data) {
 		
 		    if (err) {
 		        res.send(data);
@@ -239,7 +241,7 @@ function getFile(req, res) {
 		    
 		    else {
 			    var content = data.toString();
-			    res.render("public_html/index.html", {partial: content})
+			    res.render("assets/index.html", {partial: content})
 		    }
 		
 		});	
@@ -258,4 +260,4 @@ app.get('/:something', getFile);
 // Run
 app.listen(3000);
 console.log("Yes, I'm listening on port 3000.");
-app.use(express.static(__dirname + "/public_html"));
+app.use(express.static(__dirname + "/assets"));
