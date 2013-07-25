@@ -1,0 +1,74 @@
+Yes, I'm listening on port 80.
+Yes, I'm listening on port 80.
+
+/srv/www/martinben.com/public_html/node_modules/hbs/node_modules/handlebars/lib/handlebars/compiler/compiler.js:1246
+    throw new Handlebars.Exception("You must pass a string or Handlebars AST t
+          ^
+Error: You must pass a string or Handlebars AST to Handlebars.compile. You passed 
+    at new Error (<anonymous>)
+    at Error.Handlebars.Exception (/srv/www/martinben.com/public_html/node_modules/hbs/node_modules/handlebars/lib/handlebars/utils.js:8:41)
+    at Object.Handlebars.compile (/srv/www/martinben.com/public_html/node_modules/hbs/node_modules/handlebars/lib/handlebars/compiler/compiler.js:1246:11)
+    at /srv/www/martinben.com/public_html/node_modules/hbs/lib/hbs.js:52:33
+    at fs.js:266:14
+    at Object.oncomplete (fs.js:107:15)
+Yes, I'm listening on port 80.
+
+/srv/www/martinben.com/public_html/node_modules/hbs/node_modules/handlebars/lib/handlebars/compiler/compiler.js:1246
+    throw new Handlebars.Exception("You must pass a string or Handlebars AST t
+          ^
+Error: You must pass a string or Handlebars AST to Handlebars.compile. You passed 
+    at new Error (<anonymous>)
+    at Error.Handlebars.Exception (/srv/www/martinben.com/public_html/node_modules/hbs/node_modules/handlebars/lib/handlebars/utils.js:8:41)
+    at Object.Handlebars.compile (/srv/www/martinben.com/public_html/node_modules/hbs/node_modules/handlebars/lib/handlebars/compiler/compiler.js:1246:11)
+    at /srv/www/martinben.com/public_html/node_modules/hbs/lib/hbs.js:52:33
+    at fs.js:266:14
+    at Object.oncomplete (fs.js:107:15)
+Yes, I'm listening on port 80.
+Yes, I'm listening on port 80.
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+    at errnoException (net.js:900:11)
+    at Server._listen2 (net.js:1038:14)
+    at listen (net.js:1060:10)
+    at Server.listen (net.js:1126:5)
+    at Function.app.listen (/usr/lib/node_modules/express/lib/application.js:535:24)
+    at Object.<anonymous> (/srv/www/martinben.com/public_html/app.js:81:5)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+Yes, I'm listening on port 80.
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+    at errnoException (net.js:900:11)
+    at Server._listen2 (net.js:1038:14)
+    at listen (net.js:1060:10)
+    at Server.listen (net.js:1126:5)
+    at Function.app.listen (/usr/lib/node_modules/express/lib/application.js:535:24)
+    at Object.<anonymous> (/srv/www/martinben.com/public_html/app.js:81:5)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+Yes, I'm listening on port 80.
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+    at errnoException (net.js:900:11)
+    at Server._listen2 (net.js:1038:14)
+    at listen (net.js:1060:10)
+    at Server.listen (net.js:1126:5)
+    at Function.app.listen (/usr/lib/node_modules/express/lib/application.js:535:24)
+    at Object.<anonymous> (/srv/www/martinben.com/public_html/app.js:81:5)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<ul>
+	{{#each posts}}
+	    <li>{{this.title}}, {{this.body}}, {{this.date}}
+		    
+		    <a href="/admin/delete?post_id={{this.id}}">Delete</a>
+		    <a href="/admin/edit?post_id={{this.id}}">Edit</a>
+	    </li>
+	{{/each}}
+</ul>
+
+
+<form method="POST" action="/insert">
+
+	<input type="text" name="title" />
+	<textarea name="body"></textarea>
+	<input type="submit" name="submit" />
+
+</form>
+
+</body>
+</html>
