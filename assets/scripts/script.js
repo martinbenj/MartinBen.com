@@ -93,7 +93,7 @@ var app = Davis(function () {
 		makeAjaxCall( req.params['id'] + "-navigation-true" )
 	})
       
-})
+})	
 
 app.start()
 

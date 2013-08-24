@@ -51,7 +51,7 @@ app.get('/partials/_posts.html', function(req, res) {
 	
 		var html = "";
 		
-		html += "<h5>The blogging home of Objective-Ben.<br />Writing the solutions I wish I had while learning iOS.</h5>"
+		html += "<h5>The blogging home of Benjamin Martin.<br />Writing the solutions I wish I had while learning mobile and web development.</h5>"
 		for (var i = data.length-1; i >= 0; i--) {
 		
 			html += '<a href="/blog/' + data[i].title.replace(/\s/g, "-")  + '" class="blog-post-title"><article><h3>' + data[i].title + '</h3></a> <h4>' + moment(data[i].date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + data[i].body.split("</p>")[0] + '</p></section></article>';
@@ -91,7 +91,7 @@ app.get('/blog/:name', function(req,res) {
 	
 		var title = newString.replace(/-/g, " ");
 		
-		Post.findOne({ 'title': title }, function(err, doc) {
+		Post.findOne({ 'title' : title }, function(err, doc) {
 			
 			var html;
 		
@@ -234,6 +234,10 @@ app.get('/', getFile);
 app.get('/:something', getFile);
 
 // Run the app and define the path we'll be using.
-app.listen(3000);
-console.log("Yes, I'm listening on port 3000.");
+
+
+app.set('port', process.env.PORT || 3000);
+app.listen(app.get('port'));
+console.log("Yes, I'm listening on port " + app.get('port'));
+/* console.log("Yes, I'm listening on port 3000."); */
 app.use(express.static(__dirname + "/assets"));

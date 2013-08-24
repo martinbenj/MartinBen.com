@@ -63,7 +63,7 @@ p {
 }
 
 	#social-icons {
-		width:120px;
+		width:190px;
 		height:50px;
 		border:none;		
 		display: inline-block;
@@ -81,11 +81,19 @@ p {
 		}
 		
 		#twitter {
-			background: url("../images/social-icons.png") 49px 0;
+			background: url("../images/social-icons.png") -49px 0;
 			width:49px;
 			height:49px;
 			display:inline-block;
-/* 			float:left; */
+			margin-right:10px;
+		}
+		
+		#github {
+			background: url("../images/social-icons.png") -98px 0;
+			width:50px;
+			height:50px;
+			display:inline-block;
+			margin-right:10px;
 		}
 		
 #border-div {
@@ -118,7 +126,7 @@ footer {
 	
 #title-wrap {
 	margin:0 auto;
-	width:593px;
+	width:670px;
 	height:100px;
 	margin:50px auto;
 	
