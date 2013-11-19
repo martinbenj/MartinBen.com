@@ -1,0 +1,12 @@
+{
+  "name": "MartinBen.com",
+  "dependencies": {    
+    "moment": 		"*",
+    "handlebars": "*",
+    "hbs": 				"*",
+		"mongoose":		"*",
+		"http-auth":	"*",
+		"nodemailer":	"*",
+		"mailgun-js":	"*"
+	}
+}
