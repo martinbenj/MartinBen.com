@@ -1,9 +1,9 @@
 {
-  "name": "MartinBen.com",
-  "dependencies": {    
-    "moment": 		"*",
-    "handlebars": "*",
-    "hbs": 				"*",
+	"name": "MartinBen.com",
+		"dependencies": {
+		"moment": 		"*",
+		"handlebars": "*",
+		"hbs": 				"*",
 		"mongoose":		"*",
 		"http-auth":	"*",
 		"nodemailer":	"*",
