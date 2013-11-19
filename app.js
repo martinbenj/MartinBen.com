@@ -51,10 +51,10 @@ app.get('/partials/_posts.html', function(req, res) {
 	
 		var html = "";
 		
-		html += "<h5>The blogging home of Benjamin Martin.<br />Writing the solutions I wish I had while learning mobile and web development.</h5>"
+		/* html += "<h5>The blogging home of Benjamin Martin.<br />Writing the solutions I wish I had while learning mobile and web development.</h5>" */
 		for (var i = data.length-1; i >= 0; i--) {
 		
-			html += '<a href="/blog/' + data[i].title.replace(/\s/g, "-")  + '" class="blog-post-title"><article><h3>' + data[i].title + '</h3></a> <h4>' + moment(data[i].date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + data[i].body.split("</p>")[0] + '</p></section></article>';
+			html += '<a href="' + ( data[i].title.indexOf('My First Month') > -1 ? 'https:\/\/medium.com\/p\/6691f0b663ad' : '/blog/' + data[i].title.replace(/\s/g, "-") )   + '" class="blog-post-title"><article><h3>' + data[i].title + '</h3></a> <h4>' + moment(data[i].date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + data[i].body.split("</p>")[0] + '</p></section></article>';
 			
 			postIncrement++;
 		}	
@@ -91,13 +91,23 @@ app.get('/blog/:name', function(req,res) {
 	
 		var title = newString.replace(/-/g, " ");
 		
-		Post.findOne({ 'title' : title }, function(err, doc) {
-			
-			var html;
+		console.log(title);
 		
-			html = '<article><h3>' + doc.title + '</h3></a> <h4>' + moment(doc.date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + doc.body + '</section></article>';
-	
-			res.render('assets/index.html', {partial: html});
+		Post.findOne({ 'title' : title }, function(err, doc) {
+		
+			if (doc == null) {
+				res.status(404).render('assets/404.html', {});	
+			}
+			
+			else {
+			
+				var html;
+			
+				html = '<article><h3>' + doc.title + '</h3></a> <h4>' + moment(doc.date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + doc.body + '</section></article>';
+		
+				res.render('assets/index.html', {partial: html});
+			
+			}
 			
 		});
 		
@@ -193,7 +203,7 @@ function getFile(req, res) {
 	
 		var html = "";
 		
-		html += "<h5>The blogging home of Objective-Ben.<br />Writing the solutions I wish I had while learning iOS.</h5>"
+		/* html += "<h5>The blogging home of Objective-Ben.<br />Writing the solutions I wish I had while learning iOS.</h5>" */
 		for (var i = data.length-1; i >= 0; i--) {
 		
 			html += '<a href="/blog/' + data[i].title.replace(/\s/g, "-")  + '" class="blog-post-title"><article><h3>' + data[i].title + '</h3></a> <h4>' + moment(data[i].date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + data[i].body.split("</p>")[0] + '</p></section></article>';
@@ -215,7 +225,7 @@ function getFile(req, res) {
 		fs.readFile("assets/partials/_" + req.params.something + ".html", function read(err, data) {
 		
 		    if (err) {
-		        res.send(data);
+   				res.status(404).render('assets/404.html', {});	
 		    } 
 		    
 		    else {

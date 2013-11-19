@@ -16,7 +16,7 @@ body {
 
 h2 {
 	margin:30px 0 60px;
-	font-size:2em;
+	font-size:2.5em;
 }
 
 .page-wrap {
@@ -41,7 +41,7 @@ a {
 
 p {
 	text-align:left;
-	font-size:1em;
+	font-size:1.5em;
 	line-height:1.3em;
 	margin:20px 0;
 }
@@ -145,7 +145,6 @@ footer {
 h1 {
 	text-align: center;
 	font-weight:700;
-	float:left;
 	line-height:100px;
 	margin-left:30px;
 }
@@ -162,7 +161,7 @@ h1 {
 }
 
 h3 {
-	font-size: 2em;
+	font-size: 2.5em;
 }
 
 h4 {
@@ -171,7 +170,7 @@ h4 {
 }
 
 h5 {
-	font-size: 1em;
+	font-size: 1.3em;
 	margin-bottom:40px;
 	text-align:left;
 }
@@ -182,6 +181,7 @@ article {
 
 section {
 	margin-bottom:50px;
+/* 	font-size:1.5em; */
 }
 
 input {
@@ -274,7 +274,7 @@ pre {
 /* 	border:1px solid #D8BFD8  !important; */
 	border:none !important;
 	padding:10px !important;
-	background-color:#222 !important;
+	background-color:#252525 !important;
 /*
 	border-radius: 0 !important;
 	-moz-border-radius: 0 !important;
