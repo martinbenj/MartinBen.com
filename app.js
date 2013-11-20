@@ -7,7 +7,8 @@ var express 	= require("express"),
     mongoose 	= require('mongoose'),
     Schema 		= mongoose.Schema,
     ObjectId 	= Schema.ObjectId,
-    auth 		= require('http-auth').basic,
+    auth 		= require('http-auth');
+    console.log(auth);
     basic 		= auth({ authRealm : 'admin', authList : ['testu:'+variables.adminPass] }),
     moment 		= require('moment'),
     nodemailer 	= require('nodemailer'),
