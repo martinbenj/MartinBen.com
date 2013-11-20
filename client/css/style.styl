@@ -90,12 +90,14 @@ p
 			display:inline-block
 			margin-right:10px
 	
-#border-div 
-	background-image:url('../images/dot.png')
-	background-repeat:repeat
-	height:5px
-	width:100%
+hr
+	overflow:hidden
+	border:none
 
+hr:after
+	content: "................................................................."
+	font-size:2em;
+	letter-spacing: 4px // Use letter-spacing to increase space between dots
 
 footer 
 	font-size: 0.5em
@@ -224,7 +226,6 @@ textarea
 	position:relative
 	right:-110%
 	top:-20px
-
 
 
 #body.error 
