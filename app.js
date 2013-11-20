@@ -1,3 +1,5 @@
+// Index.js default file to be used when no file specified
+
 // Define my dependencies and other variables needed for the app.
 var express 	= require("express"),
     variables 	= require(__dirname + "/variables.json"),
@@ -13,7 +15,7 @@ var express 	= require("express"),
     mailgun 	= require('mailgun-js')(variables.mailgunPass, 'martinben.mailgun.org'),
     fs 			= require('fs');
 
-// Set up Express app
+// Set up Express app/
 var app = express();
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
@@ -21,7 +23,7 @@ app.set('views', __dirname);
 app.use(express.bodyParser());
 
 // Connect to MongoDB with Mongoose adapter
-mongoose.connect('mongodb://localhost/martinben');
+//mongoose.connect('mongodb://localhost/martinben');
 
 var Post = mongoose.model('Post', new mongoose.Schema({
 	title: String,
@@ -31,16 +33,19 @@ var Post = mongoose.model('Post', new mongoose.Schema({
 
 
 // All routes for my app
+var admin = {
+	del: function(req, res) {
+		if (req.query.post_id) {
+			Post.findById(req.query.post_id).remove();
+			res.redirect('/admin');
+		} else {
+			res.send('No post_id specified.')
+		}
+	}
+}
 
 // Delete a post from my admin panel
-app.get('/admin/delete', function(req, res) {
-	if (req.query.post_id) {
-		Post.findById(req.query.post_id).remove();
-		res.redirect('/admin');
-	} else {
-		res.send('No post_id specified.')
-	}
-});
+app.get('/admin/delete', admin.del);
 	
 // Display all posts when /blog is loaded
 app.get('/partials/_posts.html', function(req, res) {
@@ -96,7 +101,7 @@ app.get('/blog/:name', function(req,res) {
 		Post.findOne({ 'title' : title }, function(err, doc) {
 		
 			if (doc == null) {
-				res.status(404).render('assets/404.html', {});	
+				res.status(404).render('client/404.html', {});	
 			}
 			
 			else {
@@ -105,7 +110,7 @@ app.get('/blog/:name', function(req,res) {
 			
 				html = '<article><h3>' + doc.title + '</h3></a> <h4>' + moment(doc.date).format('dddd, MMMM Do, YYYY') + "</h4><section>" + doc.body + '</section></article>';
 		
-				res.render('assets/index.html', {partial: html});
+				res.render('client/index.html', {partial: html});
 			
 			}
 			
@@ -123,7 +128,7 @@ app.get('/admin', function(req, res) {
 		
 		Post.find(function(err, data) {
 		
-			res.render(__dirname + '/assets/admin.html', { posts:data });
+			res.render(__dirname + '/client/admin.html', { posts:data });
 			
 		});
 
@@ -170,7 +175,7 @@ app.get('/admin/edit', function(req, res) {
 
 	Post.findById(req.query.post_id, function(err, doc){
 	
-		res.render(__dirname + '/assets/edit.html', {post: doc});
+		res.render(__dirname + '/client/edit.html', {post: doc});
 		
 	});
 
@@ -213,7 +218,7 @@ function getFile(req, res) {
 		
 		postIncrement = 1;
 		
-		res.render('assets/index.html', {partial: html})
+		res.render('client/index.html', {partial: html})
 	})
 		
 	} 
@@ -222,15 +227,15 @@ function getFile(req, res) {
 	
 		if (req.params.something == undefined) req.params.something = 'home'
 	
-		fs.readFile("assets/partials/_" + req.params.something + ".html", function read(err, data) {
+		fs.readFile("client/partials/_" + req.params.something + ".html", function read(err, data) {
 		
 		    if (err) {
-   				res.status(404).render('assets/404.html', {});	
+   				res.status(404).render('client/404.html', {});	
 		    } 
 		    
 		    else {
 			    var content = data.toString();
-			    res.render("assets/index.html", {partial: content})
+			    res.render("client/index.html", {partial: content})
 		    }
 		
 		});	
@@ -246,8 +251,9 @@ app.get('/:something', getFile);
 // Run the app and define the path we'll be using.
 
 
-app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'));
+app.set('port', process.env.PORT || 3000); //config
+app.use(express.static(__dirname + "/client")); //config
+app.listen(app.get('port')); //execution
 console.log("Yes, I'm listening on port " + app.get('port'));
 /* console.log("Yes, I'm listening on port 3000."); */
-app.use(express.static(__dirname + "/assets"));
+
