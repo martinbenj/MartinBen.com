@@ -7,10 +7,10 @@ body {
   height: 100%;
 }
 body {
-  background-color: #282e3a;
+  background-color: #fff;
   font-family: "Proxima Nova Soft";
   font-size: 2em;
-  color: #fff;
+  color: #333;
 }
 h2 {
   margin: 30px 0 60px;
@@ -33,7 +33,7 @@ footer,
 a {
   cursor: pointer;
   text-decoration: none;
-  color: #fff;
+  color: #333;
 }
 p {
   text-align: left;
@@ -104,7 +104,7 @@ footer footer span {
   line-height: 50px;
 }
 footer .footer-link {
-  color: #d8bfd8;
+  color: #987fb8;
 }
 #title-wrap {
   margin: 0 auto;
@@ -116,6 +116,7 @@ footer .footer-link {
   background-image: url("../images/ben2.png");
   background-size: 100px 100px;
   background-repeat: none;
+  border: 1px solid #eee;
   width: 100px;
   height: 100px;
   border-radius: 50px;
@@ -153,7 +154,9 @@ article {
 }
 section {
   margin-bottom: 50px;
-/* 	font-size:1.5em; */
+}
+form {
+  font-size: 1.5em;
 }
 input {
   margin: 30px auto;
@@ -162,7 +165,7 @@ input {
   height: 40px;
   font-size: 22px;
   border-radius: 5px;
-  border: 2px solid #fff;
+  border: 2px solid #333;
   padding: 10px;
   outline: 0;
   font-weight: 300;
@@ -170,8 +173,8 @@ input {
 }
 input[type="submit"] {
   background: transparent;
-  border: 3px solid #fff;
-  color: #fff;
+  border: 3px solid #333;
+  color: #333;
   cursor: pointer;
   height: 55px;
   width: 500px;
@@ -182,7 +185,7 @@ textarea {
   font-weight: 300;
   outline: 0;
   padding: 10px;
-  border: 2px solid #fff;
+  border: 2px solid #333;
   height: 300px;
   width: 500px;
   display: block;
