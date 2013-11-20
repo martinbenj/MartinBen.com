@@ -15,7 +15,7 @@ var express 	= require("express"),
     // mailgun 	= require('mailgun-js')(variables.mailgunPass, 'martinben.mailgun.org'),
     fs 			= require('fs');
 
-// Set up Express app/
+// Set up Express app
 var app = express();
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);

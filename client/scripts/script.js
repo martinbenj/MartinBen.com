@@ -79,6 +79,10 @@ var app = Davis(function () {
 		makeAjaxCall( "partials/_home.html" )
 /* 			customFunc( "partials/_home.html" ); */
 	})
+
+	this.get('/work', function(req) {
+		makeAjaxCall( "partials/_work.html" )
+	})
 	
 	this.get('/contact', function(req) {
 		makeAjaxCall( "partials/_contact.html" )
