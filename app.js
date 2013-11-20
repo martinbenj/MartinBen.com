@@ -7,8 +7,7 @@ var express 	= require("express"),
     mongoose 	= require('mongoose'),
     Schema 		= mongoose.Schema,
     ObjectId 	= Schema.ObjectId,
-    auth 		= require('http-auth');
-    console.log(auth);
+    auth 		= require('http-auth'),
     basic 		= auth({ authRealm : 'admin', authList : ['testu:'+variables.adminPass] }),
     moment 		= require('moment'),
     nodemailer 	= require('nodemailer'),
@@ -24,7 +23,7 @@ app.set('views', __dirname);
 app.use(express.bodyParser());
 
 // Connect to MongoDB with Mongoose adapter
-mongoose.connect('mongodb://localhost/martinben');
+//mongoose.connect('mongodb://localhost/martinben');
 
 var Post = mongoose.model('Post', new mongoose.Schema({
 	title: String,
