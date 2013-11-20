@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1> Editing {{post.title}} </h1>
+
+<form method="POST" action="/admin/edit?post_id={{post.id}}">
+
+<textarea name="body">{{post.body}}</textarea>
+<input type="submit" />
+
+</form>
+
+</body>

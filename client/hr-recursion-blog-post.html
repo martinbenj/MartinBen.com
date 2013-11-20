@@ -1,0 +1,73 @@
+<p>Jacob Thornton, more popularly known as @fat, used to work at Twitter. While conducting interviews for JavaScript developers, he would ask one simple question: rewrite as much of jQuery as you can in 30 minutes.</p>
+
+<p>When I first heard of this, I thought @fat must be a troll. Surely he finds great joy in the concurrent looks of terror, shame, and crushed dreams on the face of his interviewee. But that's not fair. He could still be a troll, but the question is a great way to see what a person knows about JavaScript. After my first two days at Hack Reactor, I wouldn't completely flounder if asked to do this.</p>
+
+<p>Before we arrived at Hack Reactor, we had to write two recursive functions: <code class="prettyprint">stringifyJSON() </code> and <code class="prettyprint">getElementsByClassName() </code>. To increase our familiarity with these functions, we rewrote them in our first two days of class. <code class="prettyprint">parseJSON()</code>, the opposite of <code class="prettyprint">stringifyJSON()</code>, was an optional third function due to its difficulty. Going in the opposite direction is sometimes trivial. Not in this case: if <code class="prettyprint">stringifyJSON()</code> is the act of pouring water onto the ground, <code class="prettyprint">parseJSON()</code> is collecting it from the ground and placing it back into the cup it was poured from.</p>
+
+<p>JavaScript has nine different types of data: </p>
+
+ - Number <br />
+ - String <br />
+ - Boolean <br />
+ - Array <br />
+ - Object <br />
+ - Function <br />
+ - Regular Expression <br />
+ - Null <br />
+ - Undefined <br />
+
+<p>The job of <code class="prettyprint">stringifyJSON()</code> is to take valid data of one of these types and convert it to a string. <code class="prettyprint">stringifyJSON(3)</code> returns <code class="prettyprint">"3"</code>. <code class="prettyprint">stringifyJSON(' ')</code> (a string with one space) returns <code class="prettyprint">"' '"</code>. Easy enough. We're turning any of nine different data types into a single one.</p>
+
+<p><code class="prettyprint">parseJSON()</code> takes one data type as an input (a string) and has to convert it back into any of nine different data types. Not easy. You can't strip a string of its surrounding quotes and tell the remaining data to go back home to its original type. Data is stupid. You have to coax every single character out of the input string and figure out which data type to process that character as. Some examples:</p>
+
+The character '[': The beginning of an array. <br />
+{ : Beginning of an object. <br />
+- : Beginning of a number (specifically a negative number). <br />
+n : Beginning of the value null <br />
+t : Beginning of the value true (a Boolean type). <br />
+" : Beginning of a string <br />
+
+<p>When a quote is encountered, subsequent characters will be processed as part of a string until arriving at an ending quote. It is therefore known, for example, whether a letter 'n' is part of a string or part of the keyword <code class="prettyprint">null</code>.</p>
+
+<p>The recursive nature of <code class="prettyprint">parseJSON()</code> stems from the fact that we could have a multiply nested array or object of any depth. Consider:</p>
+
+<pre class="prettyprint">[['this', 'is', 'a', 'nested', 'array', ["we're", 'going', ['deeper']]]]</pre>
+
+<p>A similar nested structure could be found in an object with key-value pairs instead of an array with single values:</p>
+
+<pre class="prettyprint">{   name : { first : 'Ben', last : 'Martin' }, 
+											 hometown : { city : 'Portland', state : 'Oregon' },
+											 quandary : {{{ deepQuestion : 'What even is JavaScript?' }}}}</pre>
+
+<p>Because we never know how deeply nested an array or object may be, we must recursively iterate through its structure.</p>
+
+<p>When I first tackled the problem of turning a string containing an array or object back into an array or object, I wanted to split the string at each comma. Each data item is separated by a comma, so splitting the string by comma seems like a good idea. Until:</p>
+
+<pre class="prettyprint">['this', ['is', 'going'], 'to', 'suck']</pre>
+
+<p>karate CHOP</p>
+
+<pre class="prettyprint">['"this"', '["is"', '"going"]', "'to'", '"suck"]'.</pre>
+
+<p>Congratulations! You just chopped the inner array in half. Its delicate structure has been destroyed by your careless actions. There's absolutely nothing you can do to salvage the situation. How does that make you feel?</p>
+
+<p>This is the unpleasant moment when you realize you need to parse the string one character at a time. This probably won't happen in 30 minutes. Nonetheless, I can now write <code class="prettyprint">jQuery.parseJSON()</code>, one small part of jQuery.</p>
+
+<p>One of the reasons jQuery spread like wildfire was its easy access to and manipulation of DOM elements. It provides a sugary CSS-like syntax for grabbing classes (<code class="prettyprint">$(".class")</code>) that proved to be popular. Calling <code class="prettyprint">.getElementsByClassName("class")</code>, while admittedly not as sexy, does get the job done. This is another recursive function we wrote that is part of jQuery.</p>
+
+<p>Similar to a nested object or array, we never know how deeply nested elements in an HTML document will be. Within the body of the document, the simplest case would be having only the opening <code class="prettyprint">&#60body&#62</code> and closing <code class="prettyprint">&#60&#47body&#62</code> tags with nothing in between them. But we could also have a <code class="prettyprint">&#60div&#62</code> with more nested <code class="prettyprint">&#60div&#62s</code>, <code class="prettyprint">&#60span&#62s</code>, <code class="prettyprint">&#60h1&#62s</code>, etcetera. How do we know how deep to go when iterating through the whole DOM tree? By recurring through it.</p>
+
+<p>The solution I used was Douglas Crockford's <a href="http://snipplr.com/view/19815/" class="footer-link">Walk the DOM</a>. This uses native JavaScript properties to advance through the DOM tree. The passed-in callback is used to do something with the current node. In my case, I wanted to check if the node was both an HTML element and had the class name I was looking for.</p>
+
+<p>Having finished Hack Reactor's recursion sprint, I can now write two functions that are part of jQuery. Two functions that would definitely keep me busy for 30 minutes.</p>
+
+
+
+
+
+
+
+
+
+
+
