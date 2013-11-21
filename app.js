@@ -2,17 +2,17 @@
 
 // Define my dependencies and other variables needed for the app.
 var express 	= require("express"),
-    // variables 	= require(__dirname + "/variables.json"),
+    variables 	= require(__dirname + "/variables.json"),
     hbs 		= require('hbs'),
     mongoose 	= require('mongoose'),
     Schema 		= mongoose.Schema,
     ObjectId 	= Schema.ObjectId,
     auth 		= require('http-auth'),
-    // basic 		= auth({ authRealm : 'admin', authList : ['testu:'+variables.adminPass] }),
+    basic 		= auth({ authRealm : 'admin', authList : ['testu:'+variables.adminPass] }),
     moment 		= require('moment'),
     nodemailer 	= require('nodemailer'),
     http 		= require('http'),
-    // mailgun 	= require('mailgun-js')(variables.mailgunPass, 'martinben.mailgun.org'),
+    mailgun 	= require('mailgun-js')(variables.mailgunPass, 'martinben.mailgun.org'),
     fs 			= require('fs');
 
 // Set up Express app
@@ -23,7 +23,7 @@ app.set('views', __dirname);
 app.use(express.bodyParser());
 
 // Connect to MongoDB with Mongoose adapter
-//mongoose.connect('mongodb://localhost/martinben');
+mongoose.connect('mongodb://localhost/martinben');
 
 var Post = mongoose.model('Post', new mongoose.Schema({
 	title: String,

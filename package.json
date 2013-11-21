@@ -6,7 +6,7 @@
 		"handlebars": "1.x",
 		"hbs": 				"2.x",
 		"mongoose":		"3.x",
-		"http-auth":	"2.x",
+		"http-auth":	"1.2.9",
 		"nodemailer":	"0.5.x",
 		"mailgun-js":	"0.2.x"
 	}

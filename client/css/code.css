@@ -33,7 +33,7 @@ code .pun {
 /* punctuation - white */
 pre .pln,
 code .pln {
-  color: #bbb;
+  color: #888;
 }
 /* plaintext - white */
 pre .tag,
@@ -58,13 +58,14 @@ code .dec {
 /* decimal - blue */
 pre.prettyprint,
 code.prettyprint {
-  background-color: #000;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -o-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -khtml-border-radius: 8px;
-  border-radius: 8px;
+  background-color: #333;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 1.2em;
 }
 pre.prettyprint {
   width: 95%;
