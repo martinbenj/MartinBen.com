@@ -69,6 +69,7 @@ code.prettyprint {
 }
 pre.prettyprint {
   width: 95%;
+  color: #eee;
   margin: 1em auto;
   padding: 1em;
   white-space: pre-wrap;

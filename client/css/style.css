@@ -55,28 +55,28 @@ p {
   background-repeat: no-repeat;
   background-position: center center;
 }
-#content #social-icons {
+#social-icons {
   width: 190px;
   height: 50px;
   border: none;
   display: inline-block;
   background-repeat: no-repeat;
 }
-#content #social-icons #linked-in {
+#linked-in {
   background: url("../images/social-icons.png") 0 0;
   width: 49px;
   height: 49px;
   display: inline-block;
   margin-right: 10px;
 }
-#content #social-icons #twitter {
+#twitter {
   background: url("../images/social-icons.png") -49px 0;
   width: 49px;
   height: 49px;
   display: inline-block;
   margin-right: 10px;
 }
-#content #social-icons #github {
+#github {
   background: url("../images/social-icons.png") -98px 0;
   width: 50px;
   height: 50px;

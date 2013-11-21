@@ -1,0 +1,70 @@
+Categories for Extending a Core class
+
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+
+<p>You want to add colors to the <code class="prettyprint">UIColor</code> class. There are currently 15 different preset colors that can be used, but that's not good enough for you. You REALLY like yellow, and just <code class="prettyprint">yellowColor</code> isn't going to cut it. You also want amber, aureolin, and citrine (thanks, <a href="http://en.wikipedia.org/wiki/Category:Shades_of_yellow" class="footer-link"> Wikipedia</a>). Instead of memorizing the RGB values and using them with <code class="prettyprint"><a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UIColor_class/Reference/Reference.html" class="footer-link">colorWithRed</a></code> every time, you want to be able to reference them by name with <code class="prettyprint">amberColor</code>, <code class="prettyprint">aureolinColor</code>, and <code class="prettyprint">citrineColor</code>.</p>
+
+<p>This is a perfect task for categories. Let's open Xcode. We'll start with a plain vanilla Single View Application:</p>
+
+<img src="/categories-blog-post.rtfd/1.png" class="blog-post-image" />
+
+<p>Hit the "Next" button. Enter whatever you fancy for the product name, check "Use Storyboards" and "Use Automatic Reference Counting". Keep "Include Unit Tests" unchecked. When the project is ready to go, hit "Next" to create the project and create a new file with ⌘ + N. We're going to create an Objective-C category by navigating to Cocoa Touch in the left pane of the New File Window and selecting "Objective-C category":</p>
+<img src="/categories-blog-post.rtfd/2.png" class="blog-post-image" />
+
+<p>In the "Category" field, enter something descriptive of what we're creating, perhaps "MoreYellow". The "Category on" field is more important. This is the class we will be adding functionality to. Begin typing "UIColor" and it should autocomplete for you:</p>
+
+<img src="/categories-blog-post.rtfd/3.png" class="blog-post-image" />
+
+<p>If they're not already in there, go ahead and drag and drop these new "UIColor+MoreYellow.h" and "UIColor+MoreYellow.m" files into the "Supporting Files" folder for organizational purposes.</p>
+
+<p>In our "UIColor+MoreYellow.h" file, we'll create the function prototype for the first new shade of yellow we want:</p>
+
+<img src="/categories-blog-post.rtfd/4.png" class="blog-post-image" />
+
+<p>Notice this function has a <code class="prettyprint">+</code> in front of it to denote it is a class method. Class methods are called upon a class instead of an instance variable of a class. What does this mean? Time for a little diversion.</p>
+
+<p>Let's say we're setting the background color of our view. We would do this with the following:</p>
+
+<p><pre class="prettyprint">self.view.backgroundColor = [UIColor redColor];</pre></p>
+ 
+<p><code class="prettyprint">self</code> is the current ViewController we are working with. <code class="prettyprint">redColor</code> is a message being sent to (or a "method being called upon") the <code class="prettyprint">UIColor</code> class.</p>
+
+<p>Now let's say we want to get the number of items in an array. There is a message called <code class="prettyprint">count</code> that will do this for us. However, we can't send the <code class="prettyprint">count</code> message directly to the <code class="prettyprint">NSArray</code> class because the <code class="prettyprint">NSArray</code> class itself does not hold any items. It is merely a blueprint for <code class="prettyprint">NSArray</code> instances (or "objects"). Only instances of <code class="prettyprint">NSArray</code> can hold items. We could do the following:</p>
+
+<p>
+Correct <br />
+<pre class="prettyprint">
+NSArray *items = [[NSArray alloc] initWithObjects: @"first item", @"second item", nil];
+NSLog(@"%d", [items count]);
+</pre>
+</p>
+
+<p>
+Incorrect - the <code class="prettyprint">NSArray</code> class itself doesn't hold any items. <br />
+<pre class="prettyprint">
+NSLog(@"%d", [NSArray count]);
+</pre>
+</p>
+
+<p>
+<code class="prettyprint">count</code> is a message being sent to <code class="prettyprint">items</code>, which is an instance of the <code class="prettyprint">NSArray</code> class. In this case, <code class="prettyprint">count</code> will return the value 2.
+</p>
+
+<p><code class="prettyprint">%d</code> is the specifier for integers, which is what the <code class="prettyprint">count</code> method returns (specifically a <code class="prettyprint">NSUInteger</code>, or unsigned integer).</p>
+
+<p>We just declared the function in "UIColor+MoreYellow.h". Now let's define the function in "UIColor+MoreYellow.m".
+<img src="/categories-blog-post.rtfd/5.png" class="blog-post-image" /></p>
+
+<p>The RGB value for amber is (255, 190, 0). Because the <code class="prettyprint">colorWithRed</code> method takes float values between 0 and 1, we have to divide our red, green, and blue values by 255.0. The red value is 255.0/255.0 = 1.0. The green value is 190.0/255.0. The blue value is 0/255.0 = 0.	
+We'll repeat this process in the .h and .m files for <code class="prettyprint">aureolinColor</code> and <code class="prettyprint">citrineColor</code> using the appropriate RGB values: </p>
+<img src="/categories-blog-post.rtfd/6.png" class="blog-post-image" />
+<img src="/categories-blog-post.rtfd/7.png" class="blog-post-image" />
+ 
+
+<p>We can now reference these colors in our ViewController.m file by simply importing "UIColor+MoreYellow.h":
+<img src="/categories-blog-post.rtfd/8.png" class="blog-post-image" /></p>
+
+<p>Boom. The <code class="prettyprint">backgroundColor</code> of our view is set to a random yellow color. The <code class="prettyprint">arc4random_uniform()</code> function is the most true random number generator in Objective-C. Other functions such as <code class="prettyprint">arc4random()</code> give results that are biased around powers of 2.</p>
+
+<p>The full source for this post can be downloaded <a href="/categories-blog-post.rtfd/CategoriesBlogPost.zip" target="_blank" class="footer-link">here</a> or on <a href="https://github.com/Objective-Ben/Blog-Projects/tree/master/CategoriesBlogPost" class="footer-link">Github</a>.</p>
+
