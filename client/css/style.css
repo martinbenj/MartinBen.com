@@ -263,19 +263,35 @@ pre {
   clear: both;
 }
 .work-image {
-  height: 310px;
   width: 310px;
   margin: 20px;
   border-radius: 15px;
-  background-image: url("../images/particle-blue.png");
   background-size: 310px 310px;
   opacity: 0.7;
-  transition: 0.8s;
+  transition: opacity 0.8s;
+  transition: -webkit-filter 0.3s;
   cursor: pointer;
+  -webkit-filter: blur(5px);
+}
+.famous {
+  background-image: url("../images/project-screenshots/famous.png");
+  background-size: 310px 310px;
+  height: 310px;
+}
+.versal {
+  background-image: url("../images/project-screenshots/versal.png");
+  background-size: 310px 250px;
+  height: 250px;
+}
+.grey-player {
+  background-image: url("../images/project-screenshots/grey-player.png");
+  background-size: 310px 200px;
+  height: 200px;
 }
 .work-image:hover {
   transition: 0.3s;
   opacity: 0.9;
+  -webkit-filter: blur(0px);
 }
 .work-image:active {
   transition: 0.2s;
