@@ -296,11 +296,20 @@ pre
 	margin:20px
 	border-radius:15px
 	background-size: 310px 310px
-	opacity:0.7
-	transition: opacity 0.8s
-	transition: -webkit-filter 0.3s
+	// opacity:0.7
+	// transition: opacity 0.8s
+	transition: 0.3s
 	cursor:pointer
-	-webkit-filter: blur(5px)
+	-webkit-filter: blur(2px)
+
+.work-image:hover
+	transition: 0.3s
+	// opacity:0.9
+	-webkit-filter: blur(0px)
+
+.work-image:active
+	transition: 0.2s
+	// opacity:1	
 
 .famous
 	background-image: url('../images/project-screenshots/famous.png')
@@ -317,16 +326,6 @@ pre
 	background-image: url('../images/project-screenshots/grey-player.png')
 	background-size:310px 200px
 	height:200px
-
-.work-image:hover
-	transition: 0.3s
-	opacity:0.9
-	-webkit-filter: blur(0px)
-
-.work-image:active
-	transition: 0.2s
-	opacity:1	
-
 
 .work-description
 	height:350px
